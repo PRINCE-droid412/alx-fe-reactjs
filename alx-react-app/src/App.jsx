@@ -45,6 +45,14 @@ function App() {
     </>
   )
 }
+      
+function WelcomeMessage() {
+    return (
+        <div className="App">
+            <WelcomeMessage />
+        </div>
+    );
+}
 
 
 export default App
