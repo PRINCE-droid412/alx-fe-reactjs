@@ -10,7 +10,7 @@ import UserProfile from './components/UserProfile';
 import Counter from './components/Counter';
 
 
-function App() {
+function App(){
   const [count, setCount] = useState(0)
 
   return (
