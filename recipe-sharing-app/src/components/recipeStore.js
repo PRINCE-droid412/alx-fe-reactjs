@@ -8,7 +8,7 @@ const useRecipeStore = create((set) => ({
   recommendations: [],
 
   // Actions
-   setRecipes: (newRecipes) => set({ recipes: newRecipes }), // Adds bulk recipes
+  setRecipes: (newRecipes) => set({ recipes: newRecipes }), // Adds bulk recipes
   setSearchTerm: (term) => set({ searchTerm: term }),
   filterRecipes: () =>
     set((state) => ({
