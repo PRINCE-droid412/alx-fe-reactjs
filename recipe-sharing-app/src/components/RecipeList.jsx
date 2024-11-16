@@ -1,5 +1,6 @@
 // src/components/RecipeList.jsx
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import { useRecipeStore } from '../recipeStore';
 import FavoriteButton from './FavoriteButton';
 
@@ -14,6 +15,7 @@ const RecipeList = () => {
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
             <FavoriteButton recipeId={recipe.id} />
+            <Link to={`/recipe/${recipe.id}`}>View Details</Link> {/* Link to details */}
           </div>
         ))
       ) : (
