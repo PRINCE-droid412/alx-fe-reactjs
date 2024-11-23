@@ -45,7 +45,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile/*" element={<Profile />} />
-        <Route path="/blog/:postId" element={<BlogPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} /> {/* Changed from :postId to :id */}
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
