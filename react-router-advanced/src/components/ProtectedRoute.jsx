@@ -1,8 +1,22 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';  // <-- Add this import
 
-const ProtectedRoute = ({ children, isAuthenticated }) => {
-  return isAuthenticated ? children : <Navigate to="/login" />;
+const useAuth = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const login = () => {
+        setIsAuthenticated(true);
+    };
+
+    const logout = () => {
+        setIsAuthenticated(false);
+    };
+
+    return {
+        isAuthenticated,
+        login,
+        logout,
+    };
 };
 
-export default ProtectedRoute;
+export default useAuth;
