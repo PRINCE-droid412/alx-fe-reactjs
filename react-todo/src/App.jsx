@@ -8,7 +8,7 @@ function App() {
     <>
       <div>
         <TodoList />
-        <TodoList.test.js />
+        <TodoList.test />
       </div>
     </>
   );
