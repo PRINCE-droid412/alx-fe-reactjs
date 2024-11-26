@@ -8,6 +8,7 @@ function App() {
     <>
       <div>
         <TodoList />
+        <TodoList.test.js />
       </div>
     </>
   );
