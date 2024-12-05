@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 
 function AddRecipeForm() {
-  const [formData, setFormData] = useState({
-    title: "",
-    ingredients: "",
-    steps: "",
-  });
+  // Define state for each form field
+  const [title, setTitle] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [error, setError] = useState("");
 
-  const [errors, setErrors] = useState({});
-
+   // Handle form field changes using target.value
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target; // Destructure name and value from the event
+    if (name === "title") {
+      setTitle(value);
+    } else if (name === "ingredients") {
+      setIngredients(value);
+    } else if (name === "instructions") {
+      setInstructions(value);
+    }
   };
+
 
   const validateForm = () => {
     let errors = {};
