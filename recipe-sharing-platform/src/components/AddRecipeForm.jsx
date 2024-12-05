@@ -43,7 +43,7 @@ function AddRecipeForm() {
 
   return (
     <div className="max-w-lg mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Add a New Recipe</h1>
+      <h1 className="text-2xl font-bold text-gray-800 md-6">Add a New Recipe</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Recipe Title */}
         <div>
@@ -64,7 +64,7 @@ function AddRecipeForm() {
 
         {/* Ingredients */}
         <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="ingredients">
+          <label className="block text-gray-700 font-medium md-2" htmlFor="ingredients">
             Ingredients (one per line)
           </label>
           <textarea
@@ -83,7 +83,7 @@ function AddRecipeForm() {
 
         {/* Preparation Steps */}
         <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="steps">
+          <label className="block text-gray-700 font-medium md-2" htmlFor="steps">
             Preparation Steps
           </label>
           <textarea
