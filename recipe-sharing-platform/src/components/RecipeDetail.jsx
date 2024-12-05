@@ -1,51 +1,60 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import data from "../data.json"; // Import your mock recipe data
 
 function RecipeDetail() {
-  const { id } = useParams(); // Extract recipe ID from the URL
-  const recipe = data.find((item) => item.id === parseInt(id)); // Find recipe by ID
+  const { id } = useParams(); // Get the id from the URL
+  const navigate = useNavigate();  // To navigate to different routes (optional, for a 'Back' button)
+  
+  const [recipe, setRecipe] = useState(null);  // State to hold the current recipe
+  
+  // useEffect to load recipe data when the component mounts
+  useEffect(() => {
+    // Find the recipe with the matching id
+    const foundRecipe = recipeData.find((recipe) => recipe.id === parseInt(id));
+    
+    if (foundRecipe) {
+      setRecipe(foundRecipe);
+    } else {
+      // If no recipe is found, navigate back or show a 404 page
+      navigate("/");  // Redirect to home page or error page
+    }
+  }, [id, navigate]);  // Dependency array ensures the effect runs when the id changes
 
-  if (!recipe) {
-    return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-3xl font-bold text-red-600">Recipe Not Found</h1>
-      </div>
-    );
-  }
+  if (!recipe) return <div>Loading...</div>;  // Render loading state until recipe is found
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="container mx-auto p-4">
+      <button
+        onClick={() => navigate("/")}  // Go back to home page
+        className="bg-blue-500 text-white py-2 px-4 rounded mb-6"
+      >
+        Back to Recipes
+      </button>
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <img
           src={recipe.image}
           alt={recipe.title}
           className="w-full h-64 object-cover"
         />
         <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">{recipe.title}</h1>
-          <p className="text-gray-700 mb-6">{recipe.summary}</p>
+          <h1 className="text-3xl font-semibold text-gray-800">{recipe.title}</h1>
+          <h2 className="text-lg font-medium text-gray-600 mt-2">{recipe.summary}</h2>
 
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ingredients</h2>
-          <ul className="list-disc list-inside mb-6 text-gray-700">
+          <h3 className="mt-6 text-xl font-semibold text-gray-700">Ingredients:</h3>
+          <ul className="list-disc pl-5">
             {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
+              <li key={index} className="text-gray-600">{ingredient}</li>
             ))}
           </ul>
 
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Cooking Instructions</h2>
-          <ol className="list-decimal list-inside text-gray-700">
+          <h3 className="mt-6 text-xl font-semibold text-gray-700">Instructions:</h3>
+          <ol className="list-decimal pl-5">
             {recipe.instructions.map((step, index) => (
-              <li key={index} className="mb-2">{step}</li>
+              <li key={index} className="text-gray-600">{step}</li>
             ))}
           </ol>
-
-          <a
-            href="/"
-            className="inline-block mt-6 px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition duration-300"
-          >
-            Back to Home
-          </a>
         </div>
       </div>
     </div>
