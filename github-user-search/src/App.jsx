@@ -2,7 +2,7 @@ import { useState } from 'react'
 import react from 'react'
 import './App.css'
 import search from "./components/Search"
-import { fetchAdvancedUserData } from "./services/githubService";
+import { fetchUserData } from "./services/githubService";
 
 
 
@@ -20,7 +20,7 @@ function App() {
         setResults([]);
 
         try {
-            const data = await fetchAdvancedUserData(query);
+            const data = await fetchUserData(query);
             setResults(data);
         } catch (err) {
             setError("Failed to fetch results. Please try again.");
