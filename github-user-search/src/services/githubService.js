@@ -16,7 +16,7 @@ export const fetchUserData = async ({ username, location, minRepos }) => {
 
         return response.data.items; // The "items" array contains matching users
     } catch (error) {
-        console.error("Error fetching advanced user data:", error);
+        console.error("Error fetching user data:", error);
         throw error;
     }
 };
