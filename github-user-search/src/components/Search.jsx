@@ -21,6 +21,10 @@ const Search = ({ onSearch }) => {
     return (
         <div className="p-4">
         <form
+            <img src="avatar_url" alt="Avatar" />
+            <h2>Username</h2>
+              <a href="profile_url">View Profile</a> Looks like we can't find the user.
+
             onSubmit={handleSubmit}
             className="flex flex-col gap-4 bg-white shadow-md rounded-lg p-6"
         >
