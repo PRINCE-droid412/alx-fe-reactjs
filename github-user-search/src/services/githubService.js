@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_GITHUB_API_URL;
 
-export const fetchAdvancedUserData = async ({ username, location, minRepos }) => {
+export const fetchUserData = async ({ username, location, minRepos }) => {
     try {
         // Construct query parameters
         let query = "";
