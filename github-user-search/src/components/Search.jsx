@@ -1,103 +1,66 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 
 const Search = ({ onSearch }) => {
-    const [username, setUsername] = useState("");
-    const [location, setLocation] = useState("");
-    const [minRepos, setMinRepos] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [results, setResults] = useState(null);
+  const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false); // State to manage loading status
+  const [error, setError] = useState(null); // State to manage error message
+  const [userData, setUserData] = useState(null); // State to store the fetched user data
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError("");
-        setResults(null);
+  const handleInputChange = (event) => {
+    setUsername(event.target.value);
+  };
 
-        try {
-            const query = {
-                username: username.trim(),
-                location: location.trim(),
-                minRepos: minRepos.trim(),
-            };
-            const result = await onSearch(query);
-            setResults(result);
-        } catch (err) {
-            setError("Looks like we can't find the user");
-        } finally {
-            setLoading(false);
-        }
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (username.trim()) {
+      setLoading(true); // Start loading when the search is initiated
+      setError(null); // Reset any previous errors
+      setUserData(null); // Clear previous user data
 
-    return (
-        <div className="p-4">
-            <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-4 bg-white shadow-md rounded-lg p-6"
-            >
-                <input
-                    type="text"
-                    placeholder="Search by Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="p-2 border rounded"
-                />
-                <input
-                    type="text"
-                    placeholder="Location"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className="p-2 border rounded"
-                />
-                <input
-                    type="number"
-                    placeholder="Minimum Repositories"
-                    value={minRepos}
-                    onChange={(e) => setMinRepos(e.target.value)}
-                    className="p-2 border rounded"
-                />
-                <button
-                    type="submit"
-                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-                >
-                    Search
-                </button>
-            </form>
+      try {
+        await onSearch(username); // Call the parent onSearch function
+        setLoading(false); // Stop loading after the API call
+      } catch {
+        setError("Looks like we can't find the user"); // Display error if the user isn't found
+        setLoading(false); // Stop loading after the error occurs
+      }
+    }
+  };
 
-            {/* Loading state */}
-            {loading && <p className="text-center">Loading...</p>}
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Search GitHub Username"
+          value={username}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Search</button>
+      </form>
 
-            {/* Error state */}
-            {error && <p className="text-center text-red-500">{error}</p>}
-
-            {/* Results state */}
-            {results && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                    {results.map((user) => (
-                        <div
-                            key={user.id}
-                            className="border rounded-lg shadow-md p-4 flex flex-col items-center"
-                        >
-                            <img
-                                src={user.avatar_url}
-                                alt={user.login}
-                                className="w-24 h-24 rounded-full mb-2"
-                            />
-                            <h3 className="font-bold">{user.login}</h3>
-                            <a
-                                href={user.html_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 mt-2"
-                            >
-                                View Profile
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            )}
+      {/* Conditional rendering */}
+      {loading && <p>Loading...</p>} {/* Show loading message */}
+      {error && <p style={{ color: "red" }}>{error}</p>} {/* Show error message */}
+      {userData && !loading && !error && ( // Display user data if available
+        <div>
+          <h2>{userData.name || userData.login}</h2>
+          <p>Followers: {userData.followers}</p>
+          <p>Public Repos: {userData.public_repos}</p>
+          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+            View GitHub Profile
+          </a>
+          <img src={userData.avatar_url} alt="User Avatar" width="100" />
         </div>
-    );
+      )}
+    </div>
+  );
+};
+
+// PropTypes for Search component
+Search.propTypes = {
+  onSearch: PropTypes.func.isRequired, // onSearch should be a required function
 };
 
 export default Search;
