@@ -18,8 +18,9 @@ const Search = ({ onSearch }) => {
       setError(null); // Reset any previous errors
       setUserData(null); // Clear previous user data
 
-      try {
-        await onSearch(username); // Call the parent onSearch function
+       try {
+        const data = await onSearch(username); // Call the parent onSearch function
+        setUserData(data); // Store the fetched user data
         setLoading(false); // Stop loading after the API call
       } catch {
         setError("Looks like we can't find the user"); // Display error if the user isn't found
@@ -42,7 +43,7 @@ const Search = ({ onSearch }) => {
 
       {/* Conditional rendering */}
       {loading && <p>Loading...</p>} {/*Loading... */}
-      {error && <p style={{ color: "red" }}>{Looks like we cant find the user}</p>} {/* Looks like we cant find the user */}
+      {error && <p style={{ color: "red" }}>{error}</p>} {/* Looks like we cant find the user */}
       {userData && !loading && !error && ( // Display user data if available
         <div>
           <h2>{userData.name || userData.login}</h2>
