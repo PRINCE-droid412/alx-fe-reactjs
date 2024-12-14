@@ -49,14 +49,16 @@ const Search = ({ onSearch }) => {
       {error && <p style={{ color: "red" }}>{error}</p>} {/* Looks like we cant find the user */}
       {userData && !loading && !error && ( // Display user data if available
         <div>
-          <h2>{userData.name || userData.login}</h2>
-          <p>Followers: {userData.followers}</p>
-          <p>Public Repos: {userData.public_repos}</p>
-          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
-            View GitHub Profile
-          </a>
-          <img src={userData.avatar_url} alt="User Avatar" width="100" />
-        </div>
+          {userData.map((user) => (
+            <div key={user.id}>
+              <h2>{user.name || user.login}</h2>
+              <p>Followers: {user.followers}</p>
+              <p>Public Repos: {user.public_repos}</p>
+              <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+                View GitHub Profile
+              </a>
+              <img src={user.avatar_url} alt="User Avatar" width="100" />
+            </div>
       )}
     </div>
   );
