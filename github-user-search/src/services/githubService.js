@@ -17,7 +17,7 @@ export const fetchUserData = async (query) => {
     if (minRepos) searchQuery += `+repos:>=${minRepos}`;
 
     try {
-        const response = await axios.get(`${apiUrl}/search/users?q=${searchQuery}`);
+        const response = await axios.get(`${apiUrl}https://api.github.com/search/users?q=${searchQuery}`);
         return response.data.items || [];
     } catch (error) {
         console.error("Error fetching user data from GitHub:", error);
