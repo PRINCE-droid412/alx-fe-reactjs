@@ -41,8 +41,8 @@ const Search = ({ onSearch }) => {
       </form>
 
       {/* Conditional rendering */}
-      {loading && <p>Loading...</p>} {/* Show loading message */}
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Show error message */}
+      {loading && <p>Loading...</p>} {/*Loading... */}
+      {error && <p style={{ color: "red" }}>{Looks like we cant find the user}</p>} {/* Looks like we cant find the user */}
       {userData && !loading && !error && ( // Display user data if available
         <div>
           <h2>{userData.name || userData.login}</h2>
