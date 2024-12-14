@@ -7,7 +7,7 @@ const apiUrl = import.meta.env.VITE_GITHUB_API_URL || "https://api.github.com";
  * @param {Object} query - The search query containing username, location, and minRepos.
  * @returns {Promise<Array>} - A list of GitHub users matching the query.
  */
-export const fetchAdvancedUserData = async (query) => {
+export const fetchUserData = async (query) => {
     const { username, location, minRepos } = query;
 
     // Build the query string for advanced search
