@@ -3,6 +3,7 @@ import PropTypes from "prop-types"; // Import PropTypes
 
 const Search = ({ onSearch }) => {
   const [username, setUsername] = useState("");
+  const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false); // State to manage loading status
   const [error, setError] = useState(null); // State to manage error message
   const [userData, setUserData] = useState(null); // State to store the fetched user data
