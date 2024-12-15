@@ -7,8 +7,6 @@ const Search = ({ onSearch }) => {
   const [error, setError] = useState(null); // State to manage error message
   const [userData, setUserData] = useState(null); // State to store the fetched user data
 
-  export const fetchUserData = async (query) => {
-    const { username, location, minRepos } = query;
 
   const handleInputChange = (event) => {
     setUsername(event.target.value);
@@ -49,7 +47,7 @@ const Search = ({ onSearch }) => {
       {error && <p style={{ color: "red" }}>{error}</p>} {/* Looks like we cant find the user */}
       {userData && !loading && !error && ( // Display user data if available
         <div>
-          {userData.map((user) => (
+          {fetchUserData.map((user) => (
             <div key={user.id}>
               <h2>{user.name || user.login}</h2>
               <p>Followers: {user.followers}</p>
